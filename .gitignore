@@ -2,5 +2,9 @@
 *.iml
 
 
-#Ignore everything under .idea folder, not elsewhere
+#Ignore everything under .idea folder
 .idea
+
+
+#Ignore everything under out folder
+out
