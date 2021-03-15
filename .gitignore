@@ -1,0 +1,10 @@
+#ignore files with iml extenion
+*.iml
+
+
+#Ignore everything under .idea folder
+.idea
+
+
+#Ignore everything under out folder
+out
