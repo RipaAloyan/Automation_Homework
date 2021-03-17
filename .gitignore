@@ -8,3 +8,6 @@
 
 #Ignore everything under out folder
 out
+
+#ignore target
+target
