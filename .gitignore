@@ -9,5 +9,5 @@
 #Ignore everything under out folder
 out
 
-#ignore target
+#Ignore everything under target folder
 target
