@@ -4,11 +4,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
+
 
 public class WebsiteTest {
     private WebDriver driver;
-    private void logIn() throws InterruptedException {
+
+    @BeforeMethod
+    public void logIn() throws InterruptedException {
         System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
         driver = new ChromeDriver();
         driver.manage().window().maximize();
@@ -23,6 +26,11 @@ public class WebsiteTest {
         Thread.sleep(5000);
     }
 
+    @AfterMethod
+    public void close(){
+        driver.quit();
+    }
+
     private boolean findFavorite(int countOfFavorites) throws InterruptedException {
         Thread.sleep(5000);
         return driver.findElements(By.className("full-size")).size() > countOfFavorites;
@@ -30,9 +38,6 @@ public class WebsiteTest {
 
     @Test
     public void addAndCheckFavorite() throws InterruptedException {
-        logIn();
-
-        //եթե կա, ջնջենք
         driver.get("https://www.greetz.nl/mygreetz/favorieten");
         Thread.sleep(5000);
         if(driver.findElement(By.xpath("//button[@class='b-icon_medium b-icon-delete']")).isDisplayed()) {
@@ -56,13 +61,10 @@ public class WebsiteTest {
 
         int countOfFavorites = 0;
         Assert.assertTrue(findFavorite(countOfFavorites));
-        driver.quit();
     }
 
     @Test
     public void priceForTwoCards() throws InterruptedException {
-        logIn();
-
         driver.get("https://www.greetz.nl/kaarten/denken-aan");
         Thread.sleep(5000);
         WebElement card = driver.findElement(By.xpath("//div[@class='b-products-grid__item'][2]"));
@@ -72,8 +74,8 @@ public class WebsiteTest {
         Thread.sleep(5000);
         WebElement input = driver.findElement(By.xpath("//input[@name='amount']"));
         input.clear();
-        input.sendKeys(Keys.NUMPAD2);
+        input.sendKeys("2");
+        Thread.sleep(2000);
         Assert.assertTrue(driver.findElement(By.xpath("//div[@class='price-total' and contains(text(), '5,90')]")).isDisplayed());
-        driver.quit();
     }
 }
