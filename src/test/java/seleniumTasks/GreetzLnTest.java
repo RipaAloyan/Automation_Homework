@@ -66,59 +66,59 @@ public class GreetzLnTest {
         String msg2 = "Prices don't match";
         resultAnalise(actualName,expectedName,actualPrice, expectedPrice, msg1, msg2);
 
-         dltFavorite();
-        }
+        dltFavorite();
+    }
 
-        @Test(priority = 1)
-        public void priceForTwoCardsTest () throws InterruptedException, ParseException {
-            driver.get("https://www.greetz.nl/kaarten/denken-aan");
-            Thread.sleep(5000);
-            List <WebElement> cards = driver.findElements(By.xpath("//div[@class='b-products-grid__item']"));
-            WebElement theCard = randomElement(cards);
-            Thread.sleep(2000);
-            theCard.click();
-            Thread.sleep(4000);
+    @Test(priority = 1)
+    public void priceForTwoCardsTest () throws InterruptedException, ParseException {
+        driver.get("https://www.greetz.nl/kaarten/denken-aan");
+        Thread.sleep(5000);
+        List <WebElement> cards = driver.findElements(By.xpath("//div[@class='b-products-grid__item']"));
+        WebElement theCard = randomElement(cards);
+        Thread.sleep(2000);
+        theCard.click();
+        Thread.sleep(4000);
 
-            WebElement input = driver.findElement(By.xpath("//input[@name='amount']"));
-            input.clear();
-            input.sendKeys("2");
-            Thread.sleep(4000);
+        WebElement input = driver.findElement(By.xpath("//input[@name='amount']"));
+        input.clear();
+        input.sendKeys("2");
+        Thread.sleep(4000);
 
-            String priceOfCard = driver.findElement(By.xpath("//*[@class='price-card price-block']/child::span/child::span[@data-qa-ref='normal-price']")).getText();
-            double expectedResult = parse(priceOfCard, 1)*2;
-            Thread.sleep(3000);
+        String priceOfCard = driver.findElement(By.xpath("//*[@class='price-card price-block']/child::span/child::span[@data-qa-ref='normal-price']")).getText();
+        double expectedResult = parse(priceOfCard, 1)*2;
+        Thread.sleep(3000);
 
-            String bill = driver.findElement(By.xpath("//*[@class='price-total']")).getText();
-            double actualResult = parse(bill, 2);
-            Thread.sleep(2000);
+        String bill = driver.findElement(By.xpath("//*[@class='price-total']")).getText();
+        double actualResult = parse(bill, 2);
+        Thread.sleep(2000);
 
-            Assert.assertEquals(expectedResult, actualResult, "Prices don't match");
-        }
+        Assert.assertEquals(expectedResult, actualResult, "Prices don't match");
+    }
 
-        public static int randomNumber ( int max){
-            Random random = new Random();
-            return random.nextInt(max);
-        }
-        public static WebElement randomElement (List < WebElement > list) {
-            return list.get(randomNumber(list.size()));
-        }
-        private void resultAnalise(String actualName, String expectedName,String actualPrice, String expectedPrice,String  msg1,String  msg2){
-            SoftAssert softAssert = new SoftAssert();
-            softAssert.assertEquals(actualName, expectedName,msg1);
-            softAssert.assertEquals(actualPrice, expectedPrice,msg2);
-        }
-        private void dltFavorite()throws InterruptedException{
-            driver.get("https://www.greetz.nl/mygreetz/favorieten");
-            Thread.sleep(5000);
-            driver.findElement(By.xpath("//button[@class='b-icon_medium b-icon-delete']"));
-            WebElement deleteConfirmationButton = driver.findElement(By.xpath("//button[@class='b-icon_medium b-icon-delete']"));
-            deleteConfirmationButton.click();
-            WebElement okDelete = driver.findElement(By.xpath("//span[contains(text(), 'Ok')]"));
-            okDelete.click();
-        }
-        public double parse(String s, int ind) {
+    public static int randomNumber ( int max){
+        Random random = new Random();
+        return random.nextInt(max);
+    }
+    public static WebElement randomElement (List < WebElement > list) {
+        return list.get(randomNumber(list.size()));
+    }
+    private void resultAnalise(String actualName, String expectedName,String actualPrice, String expectedPrice,String  msg1,String  msg2){
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(actualName, expectedName,msg1);
+        softAssert.assertEquals(actualPrice, expectedPrice,msg2);
+    }
+    private void dltFavorite()throws InterruptedException{
+        driver.get("https://www.greetz.nl/mygreetz/favorieten");
+        Thread.sleep(5000);
+        driver.findElement(By.xpath("//button[@class='b-icon_medium b-icon-delete']"));
+        WebElement deleteConfirmationButton = driver.findElement(By.xpath("//button[@class='b-icon_medium b-icon-delete']"));
+        deleteConfirmationButton.click();
+        WebElement okDelete = driver.findElement(By.xpath("//span[contains(text(), 'Ok')]"));
+        okDelete.click();
+    }
+    public double parse(String s, int ind) {
         String subSt = s.split(" ")[ind];
         String result = subSt.replace(',', '.');
         return Double.parseDouble(result);
-        }
     }
+}
