@@ -8,6 +8,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.Collections;
 import java.util.List;
 
 public class AuthorPage {
@@ -45,4 +46,17 @@ public class AuthorPage {
         wait.until(ExpectedConditions.visibilityOfAllElements(booksItems));
     }
 
+    //private List<String> getPricesAsStrings() {
+    //    List<String> priceAsString = null;
+    //    List <String> pricesFinal = null;
+    //    for (WebElement price : prices) {
+    //        final boolean add = priceAsString.add(price.getText());
+    //        pri
+    //    }
+    //    return priceAsString;
+    //}
+    // public List<Double> getPrices(){
+    //    List <String> s = getPricesAsStrings();
+    //  for(String si:s) List si = si.split("$");
+    //}
 }

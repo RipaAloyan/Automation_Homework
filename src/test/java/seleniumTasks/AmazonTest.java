@@ -16,13 +16,12 @@ import pagesAmazon.AuthorPage;
 import pagesAmazon.HomePage;
 import pagesAmazon.SearchAuthor;
 
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 public class AmazonTest {
     private WebDriver driver;
-    private final String authorFullName = "kurt vonnegut";
-    private final String beDeliveredTo = "Deliver to Armenia";
+   // private final String authorFullName = "kurt vonnegut";
+    //private final String beDeliveredTo = "Deliver to Armenia";
 
     @BeforeSuite
     public void setUp(){
@@ -35,8 +34,8 @@ public class AmazonTest {
         driver.get("https://www.amazon.com/");
     }
 
-    @Test
-    public void searchAuthorInBooks(){
+    @Test(dataProvider = "info", dataProviderClass= ReadXls.class)
+    public void searchAuthorBooks(String authorFullName, String beDeliveredTo){
         HomePage homePage = new HomePage(driver);
         homePage.waitUntilPageLoads();
 
@@ -57,9 +56,18 @@ public class AmazonTest {
         authorPage.choosePriceFilterLowToHigh();
         authorPage.waitUntilPageLoads();
 
-
-
     }
+
+   // @Test
+    //public void method(){
+    //    driver.get("https://www.amazon.com/kindle-dbs/entity/author/B000APYE16?_encoding=UTF8&offset=0&pageSize=12&searchAlias=stripbooks&sort=price-asc-rank&page=1&langFilter=default#formatSelectorHeader");
+    //    List <WebElement> list = driver.findElements(By.className("a-size-base-plus a-color-price a-text-bold"));
+     //   List <String> res = new LinkedList<>();
+
+     //   for(WebElement s : list){
+     //       res.add(s.getText());
+      //     }
+    //}
 
     public Boolean isAuthor(SearchAuthor searchAuthor, String authorFullName){
         int i = 0;
@@ -68,6 +76,5 @@ public class AmazonTest {
                 i++; }
        if(i>=(searchAuthor.getCountOfBooks()/2)){ return true; }
        else return false;
-
     }
 }
